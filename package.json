@@ -1,0 +1,15 @@
+{
+  "name": "userhandler",
+  "version": "1.0.0",
+  "description": "Api que faz operacoes em uma lista de usuario",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1"
+  }
+}
