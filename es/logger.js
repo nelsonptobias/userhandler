@@ -6,6 +6,7 @@ var esTransportOpts = {
   level: 'info',
   client
 }
+
 var logger = winston.createLogger({
   transports: [
     new Elasticsearch(esTransportOpts)

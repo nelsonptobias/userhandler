@@ -10,12 +10,14 @@ services:
         - 8080:8080
     depends_on:
         - es
-    # command: ["bash", "./wait-for-it.sh", "http://elasticsearch:9200", "--", "echo", "es up"]    
+    # command: ["apk", "add", "--no-cache", "bash", ./wait-for-it.sh, http://es:9200, --, echo, esup]    
+    command: apk add --no-cache bash ./wait-for-it.sh http://es:9200 -- echo "esup"
     networks:
         - elastic
 
   es:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    # image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
     container_name: es
     environment:
       - node.name=es01
