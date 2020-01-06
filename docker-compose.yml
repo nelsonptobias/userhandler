@@ -8,10 +8,34 @@ services:
     command: node app.js
     ports:
         - 8080:8080
-  #   depends_on:
-  #       - mongodb
-  # mongodb:
-  #   image: mongo:latest
-  #   container_name: mongodb
-  #   ports:
-  #       - 27017:27017
+    depends_on:
+        - es
+    # command: ["bash", "./wait-for-it.sh", "http://elasticsearch:9200", "--", "echo", "es up"]    
+    networks:
+        - elastic
+
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    container_name: es
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=es01
+      - bootstrap.memory_lock=false
+    hostname: es 
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    # command: ["bash", "./wait-for-it.sh", "http://elasticsearch:9200", "--", "echo", "es up"] 
+    networks:
+      - elastic
+
+networks:
+  elastic:
+    driver: bridge
+
+volumes:
+  data01:
+    driver: local
+
